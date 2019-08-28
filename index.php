@@ -33,7 +33,7 @@ $container = get_theme_mod( 'themebase_container_type' );
 			<?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
 
 			<main class="site-main" id="main">
-
+                <h1> Hello --- Testing changes gulp watch task </h1>
 				<?php if ( have_posts() ) : ?>
 
 					<?php /* Start the Loop */ ?>
