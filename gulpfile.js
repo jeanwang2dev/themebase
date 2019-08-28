@@ -1,17 +1,13 @@
 // Defining requirements
 var gulp = require('gulp');
-var yargs = require('yargs');
-var gulpif = require('gulp-if');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var postcss = require('gulp-postcss');
-var watch = require('gulp-watch');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
-var ignore = require('gulp-ignore');
 var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
 var del = require('del');
@@ -24,9 +20,6 @@ var info = require('./package.json');
 // Configuration file to keep your code DRY
 var cfg = require('./gulpconfig.json');
 var paths = cfg.paths;
-
-// Varible for production
-var PRODUCTION = yargs.argv.prod;
 
 /** STYLES */
 // Run:
@@ -46,7 +39,7 @@ gulp.task('sass', function() {
 		.pipe(sourcemaps.init({ loadMaps: true }))
 		.pipe(sass({ errLogToConsole: true }))
 		.pipe(postcss([autoprefixer()]))
-		.pipe(sourcemaps.write(undefined, { sourceRoot: null }))
+		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(paths.css));
 	return stream;
 });
