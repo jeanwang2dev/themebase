@@ -72,11 +72,6 @@ gulp.task('minifycss', function() {
 		.pipe(gulp.dest(paths.css));
 });
 
-// Compiles scss and minifycss
-gulp.task('styles', function(callback) {
-	gulp.series('sass', 'minifycss')(callback);
-});
-
 /** SCRIPTS */
 
 // Run:
@@ -189,9 +184,14 @@ gulp.task('copy-js', function(){
 	.pipe(gulp.dest(paths.js));
 });
 
+// Compiles scss and minifycss
+gulp.task('styles', function(callback) {
+	gulp.series('sass', 'minifycss')(callback);
+});
+
 // Deleting any file inside the /dist folder
-gulp.task('clean-dist', function() {
-	return del([paths.dist + '/**']);
+gulp.task('clean', function() {
+	return del([`${paths.dist}/**`,`${paths.packaged}/**` ]);
 });
 
 // Run
@@ -199,7 +199,7 @@ gulp.task('clean-dist', function() {
 // Copies the files to the /dist folder for distribution as simple theme
 gulp.task(
 	'dist',
-	gulp.series(['clean-dist'], function() {
+	gulp.series(['clean'], function() {
 		return gulp
 			.src(
 				[
@@ -250,18 +250,24 @@ gulp.task(
 	})
 );
 
+
+
 // bundle for production, first change the inc/enqueue.php file for styles
 /**
- * bundle Task
+ * compress Task
  * Generate the theme zip file
  *
  * copy all files to dist folder
  * replace the _thmename with your themename that defined in package.json name key
  * zip all the files into one theme zip file
  */
-gulp.task('bundle', function(){
+gulp.task('compress', function(){
 	return gulp.src(['dist/**/*','dist/*'])
 		.pipe(replace('themebase', info.name))
 		.pipe(zip(`${info.name}.zip`))
 		.pipe(gulp.dest('packaged'));
+});
+
+gulp.task('bundle', function(callback){
+	gulp.series('styles','dist', 'compress')(callback);
 });
