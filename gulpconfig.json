@@ -1,0 +1,19 @@
+{
+	"browserSyncOptions": {
+		"proxy": "http://167.99.49.111:8888/",
+		"notify": false
+	},
+	"browserSyncWatchFiles": ["./css/*.min.css", "./js/*.min.js", "./**/*.php"],
+	"paths": {
+		"js": "./js",
+		"css": "./css",
+		"img": "./img",
+		"imgsrc": "./src/img/*",
+		"sass": "./sass",
+		"node": "./node_modules",
+		"dev": "./src",
+		"dist": "./dist",
+		"distprod": "./dist-product",
+		"vendor": ""
+	}
+}
